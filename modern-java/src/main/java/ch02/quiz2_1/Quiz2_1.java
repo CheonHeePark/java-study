@@ -1,5 +1,6 @@
 package ch02.quiz2_1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Quiz2_1 {
@@ -13,6 +14,16 @@ public class Quiz2_1 {
             String output = printer.print(apple);
             System.out.println(output);
         }
+    }
+
+    public static <Fruit>List<Fruit> filter(List<Fruit> inventory, Predicate<Fruit> predicate) {
+        List<Fruit> results = new ArrayList<>();
+        for (Fruit t : inventory) {
+            if (predicate.accept(t)) {
+                results.add(t);
+            }
+        }
+        return results;
     }
 
     public static void main(String[] args) {
