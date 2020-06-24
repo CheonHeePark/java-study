@@ -60,15 +60,11 @@ public class Quiz2_1Test {
     }
 
     @Test
-    public void 람다사용_빨간사과_리스트로_반환() {
-        System.out.println("Test, 빨간사과만 리스트로 만들기");
+    public void 람다사용_리스트로_추상화_반환() {
+        System.out.println("Test, filter메서드 구현결과를 리스트(Generic)로 추상화");
         List<Apple> redApples = Quiz2_1.filter(apples, (apple) -> Color.Red.equals(apple.getColor()));
         System.out.println("빨간사과 개수: " + redApples.size());
-    }
 
-    @Test
-    public void 람다사용_노란바나나_리스트로반환() {
-        System.out.println("Test, 노랗고 200 이상 바나나만 리스트로 만들기");
         List<Fruit> fruits = new ArrayList<Fruit>();
         fruits.addAll(apples);
         fruits.add(new Banana(Color.Yellow, 250));
@@ -77,6 +73,15 @@ public class Quiz2_1Test {
         fruits.add(new Banana(Color.Blue, 150));
         fruits.add(new Banana(Color.Yellow, 210));
         List<Fruit> yellowBanana = Quiz2_1.filter(fruits, (banana) -> Color.Yellow.equals(banana.getColor()) && banana.getWeight() > 200);
-        System.out.println("바나나 개수: " + yellowBanana.size());
+        System.out.println("노랗고 무게가 200이 넘어가는 바나나 개수: " + yellowBanana.size());
+
+        List<Integer> numbers = new ArrayList<Integer>();
+        numbers.add(80);
+        numbers.add(70);
+        numbers.add(20);
+        numbers.add(100);
+        numbers.add(90);
+        List<Integer> highScores = Quiz2_1.filter(numbers, (score) -> score >= 80);
+        System.out.println("80점 이상 점수를 받은 사람 수: " + highScores.size());
     }
 }

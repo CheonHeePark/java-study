@@ -16,9 +16,16 @@ public class Quiz2_1 {
         }
     }
 
-    public static <Fruit>List<Fruit> filter(List<Fruit> inventory, Predicate<Fruit> predicate) {
-        List<Fruit> results = new ArrayList<>();
-        for (Fruit t : inventory) {
+    /**
+     * inventory로부터 predicate에 해당하는 요소들을 리스트로 반환한다.
+     * @param inventory 입력으로 들어온 리스트
+     * @param predicate 조건을 추상화한 인터페이스
+     * @param <T>
+     * @return
+     */
+    public static <T> List<T> filter(List<T> inventory, Predicate<T> predicate) {
+        List<T> results = new ArrayList<>();
+        for (T t : inventory) {
             if (predicate.accept(t)) {
                 results.add(t);
             }
