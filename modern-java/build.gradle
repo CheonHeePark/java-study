@@ -12,7 +12,8 @@ apply plugin: 'idea'
 group 'com.chpark'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+targetCompatibility = 1.9
+sourceCompatibility = 1.9
 
 repositories {
     mavenCentral()

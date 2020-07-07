@@ -52,5 +52,9 @@ public class Exam04 {
            if (dishNames.size() == 3) break;
         }
         System.out.println("tryJava7: " + dishNames);
+
+        test: for (int a = 0; a < 10; ++a) {
+            break test;
+        }
     }
 }

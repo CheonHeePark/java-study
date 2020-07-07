@@ -1,4 +1,5 @@
 rootProject.name = 'study'
 include 'modern-java'
 findProject(':modern-java')?.name = 'study'
+include 'algorithm'
 
