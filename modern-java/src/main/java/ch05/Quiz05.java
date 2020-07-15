@@ -2,6 +2,7 @@ package ch05;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static java.util.stream.Collectors.toList;
 
@@ -10,6 +11,7 @@ public class Quiz05 {
         quiz5_2_1();
         quiz5_2_2();
         quiz5_2_3();
+        quiz5_4_1();
     }
 
     private static void quiz5_2_1() {
@@ -60,6 +62,19 @@ public class Quiz05 {
                 .collect(toList())
                 ;
         answers.stream().forEach(a -> System.out.print(Arrays.toString(a) + " "));
+    }
 
+    private static void quiz5_4_1() {
+        System.out.println("Quiz 5-4 1");
+        // 피보나치 수열
+        Stream.iterate(new int[]{0, 1}, fibo -> new int[]{fibo[1], fibo[0] + fibo[1]})
+                .limit(20)
+                .forEach(fibo -> System.out.print("[" + fibo[0] + "," + fibo[1] + "] "));
+        System.out.println();
+        Stream.iterate(new int[]{0,1}, fibo -> new int[]{fibo[1], fibo[0] + fibo[1]})
+                .limit(20)
+                .map(fibo -> fibo[0])
+                .forEach(fibo -> System.out.print(fibo + ", "));
+        System.out.println();
     }
 }

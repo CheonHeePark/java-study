@@ -1,8 +1,8 @@
 package ch05;
 
 import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static java.util.Comparator.comparing;
@@ -35,7 +35,7 @@ public class Practice_5_6 {
 
     // 2011년에 일어난 모든 트랜잭션을 찾아 값을 오름차순으로 정렬
     private static void problem_1() {
-        System.out.println("Problem1");
+        System.out.println("\nProblem1");
         List<Transaction> answer = transactions.stream()
                 .filter(transaction -> transaction.getYear() == 2011)
                 .sorted(comparing(Transaction::getValue))
@@ -46,7 +46,7 @@ public class Practice_5_6 {
 
     // 거래자가 근무하는 모든 도시를 중복없이 나열
     private static void problem_2() {
-        System.out.println("Problem2");
+        System.out.println("\nProblem2");
         List<String> answer =
                 transactions.stream()
                 .map(transaction -> transaction.getTrader().getCity())
@@ -58,7 +58,7 @@ public class Practice_5_6 {
 
     // 케임브리지에서 근무하는 모든 거래자를 찾아서 이름순으로 정렬
     private static void problem_3() {
-        System.out.println("Problem3");
+        System.out.println("\nProblem3");
         List<Trader> answer =
                 transactions.stream()
                         .map(transaction -> transaction.getTrader())
@@ -71,7 +71,7 @@ public class Practice_5_6 {
 
     // 모든 거래자의 이름을 알파벳순으로 정렬
     private static void problem_4() {
-        System.out.println("Problem4");
+        System.out.println("\nProblem4");
         String answer = transactions.stream()
                 .map(transaction -> transaction.getTrader().getName())
                 .distinct()
@@ -90,17 +90,40 @@ public class Practice_5_6 {
 
     // 밀라노에 거래자가 있는가?
     private static void problem_5() {
+        System.out.println("\nProblem5");
+        boolean answer =
+                transactions.stream()
+                        .map(transaction -> transaction.getTrader().getCity())
+                        .anyMatch(city -> city.equals("Milan"));
+        System.out.println(answer);
     }
 
     // 케임브리지에 거주하는 거래자의 모든 트랜잭션값을 출력
     private static void problem_6() {
+        System.out.println("\nProblem6");
+        transactions.stream()
+                .filter(transaction -> "Cambridge".equals(transaction.getTrader().getCity()))
+                //.map(transaction -> transaction.getValue())
+                .map(Transaction::getValue)
+                .forEach(transactions -> System.out.println(transactions.toString()));
     }
 
     // 전체 트랜잭션 중 최대값은?
     private static void problem_7() {
+        System.out.println("\nProblem7");
+        Optional<Integer> answer = transactions.stream()
+                .map(Transaction::getValue)
+                .reduce(Integer::max);
+        System.out.println(answer);
     }
 
     // 전체 트랜잭션 중 최소값은?
     private static void problem_8() {
+        System.out.println("\nProblem8");
+        Optional<Integer> answer = transactions.stream()
+                .map(Transaction::getValue)
+                .reduce(Integer::min);
+        System.out.println(answer);
+        System.out.println(transactions.stream().map(Transaction::getValue).reduce(Integer::min).get());
     }
 }
