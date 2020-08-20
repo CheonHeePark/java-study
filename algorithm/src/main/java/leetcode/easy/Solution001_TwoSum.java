@@ -1,12 +1,17 @@
 package leetcode.easy;
 
 import java.util.Arrays;
+import java.util.HashMap;
 
 public class Solution001_TwoSum {
     public static void main(String[] args) {
         int[] input = new int[]{9, 2, 7, 15};
         int target = 9;
         int[] result = twoSum(input, target);
+        System.out.println(Arrays.toString(result));
+        input = new int[]{0, 4, 3, 0};
+        target = 0;
+        result = twoSum(input, target);
         System.out.println(Arrays.toString(result));
     }
 
@@ -18,15 +23,14 @@ public class Solution001_TwoSum {
      */
     public static int[] twoSum(int[] nums, int target) {
         int[] answer = new int[2];
-        loop:
+        HashMap<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
-            for (int j = i + 1; j < nums.length; ++j) {
-                if (nums[i] + nums[j] == target) {
-                    answer[0] = i;
-                    answer[1] = j;
-                    break loop;
-                }
+            int remine = target - nums[i];
+            if (map.containsKey(remine)) {
+                answer[0] = map.get(remine);
+                answer[1] = i;
             }
+            map.put(nums[i], i);
         }
         return answer;
     }
