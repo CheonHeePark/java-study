@@ -11,7 +11,7 @@ import java.util.Arrays;
 public class PrintableMain {
     protected static <T, F> void printResult(T input, F function) {
         // 입력,출력 모두 String으로 반환해서 출력하고있으므로, 입력,출력을 toString();으로 추상화하였다.
-        System.out.println("input : <" + toString(input) + ">\nresult: <" + toString(function) + ">\n");
+        printResultWithManyInput(function, input);
     }
 
     protected static <T, F> void printResultWithManyInput(F function, T... input) {
