@@ -1,4 +1,4 @@
-package shoppingmall;
+package shoppingmall.domain;
 
 /**
  * Created by Choen-hee Park
