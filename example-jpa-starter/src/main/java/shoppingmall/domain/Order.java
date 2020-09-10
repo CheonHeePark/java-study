@@ -32,8 +32,12 @@ public class Order {
     @OneToMany(mappedBy = "order")      // 1개의 주문은 N개의 주문목록을 가질 수 있으므로, 주문목록이 FK를 갖는다.
     private List<OrderItem> orderItems = new ArrayList<>();
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;          // 배송 정보
+
     @Temporal(value = TemporalType.TIMESTAMP)
-    private Date orderDate;
+    private Date orderDate;             // 주문 시간
 
     @Enumerated(value = EnumType.STRING)
     private OrderStatus status;
@@ -42,9 +46,16 @@ public class Order {
         setOrderer(orderer);
     }
 
+    // 주문목록 추가
     public void addOrderItem(OrderItem orderItem) {
        orderItems.add(orderItem);
        orderItem.setOrder(this);
+    }
+
+    // 배송지 정보 변경
+    public void changeDeliveryInfo(Delivery delivery) {
+        this.delivery = delivery;
+        delivery.setOrder(this);
     }
 
     private void setOrderer(Member member) {
