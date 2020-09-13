@@ -1,4 +1,4 @@
-package shoppingmall.domain;
+package shoppingmall.domain.item;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

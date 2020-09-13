@@ -9,8 +9,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import shoppingmall.domain.Category;
 import shoppingmall.domain.CategoryRepository;
-import shoppingmall.domain.Item;
-import shoppingmall.domain.ItemRepository;
+import shoppingmall.domain.item.Book;
+import shoppingmall.domain.item.Item;
+import shoppingmall.domain.item.ItemRepository;
 
 /**
  * Created by Choen-hee Park
@@ -57,8 +58,15 @@ public class CategoryItemTest {
         categoryBabyBook = new Category();
         categoryBabyBook.setName(String.valueOf(CategoryNames.Baby_Books));
 
-        effectiveJava = Item.builder().name(String.valueOf(ItemNams.Effective_Java)).price(3 * 10000).stockQuantity(10).build();
-        goodDaddy = Item.builder().name(String.valueOf(ItemNams.Good_Daddy)).price(20 * 10000).stockQuantity(3).build();
+        // Item -> Book, Movie, Album 등 세부 클래스로 확장하였고, lombok의 Builder를 제거하고 Setter 패턴으로 임시 변경
+        effectiveJava = new Book();
+        effectiveJava.setName(String.valueOf(ItemNams.Effective_Java));
+        effectiveJava.setPrice(3 * 10000);
+        effectiveJava.setStockQuantity(10);
+        goodDaddy = new Book();
+        goodDaddy.setName(String.valueOf(ItemNams.Good_Daddy));
+        goodDaddy.setPrice(20 * 10000);
+        goodDaddy.setStockQuantity(3);
     }
 
     @Test

@@ -1,8 +1,9 @@
-package shoppingmall.domain;
+package shoppingmall.domain.item;
 
-import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shoppingmall.domain.Category;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -15,11 +16,14 @@ import java.util.List;
  * Time : 2:15 AM
  */
 // 상품
+@Setter
 @Getter
-@Builder
 @Entity
+@NoArgsConstructor
 @Table(name = "ITEMS")
-public class Item {
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)       // 단일 테이블전략. 추후 조인전략으로 변경해보기
+@DiscriminatorColumn(name = "DTYPE")
+public abstract class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY) @Column(name = "ITEM_ID")
     private Long id;
