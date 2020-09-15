@@ -1,6 +1,7 @@
 package shoppingmall.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shoppingmall.domain.item.Item;
 
@@ -16,6 +17,7 @@ import javax.persistence.*;
 @Setter
 @Getter
 @Entity
+@NoArgsConstructor
 @Table(name = "ORDER_ITEM")
 public class OrderItem {
     @Id
@@ -23,11 +25,11 @@ public class OrderItem {
     @Column(name = "ORDER_ITEM_ID")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID")
     private Order order;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ITEM_ID")
     private Item item;
 

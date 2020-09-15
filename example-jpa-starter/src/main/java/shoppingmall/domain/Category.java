@@ -38,7 +38,7 @@ public class Category {
     private List<Item> items = new ArrayList<>();
 
     // 부모 카테고리 (여러 자식 카테고리들은 1개의 부모카테고리로 매핑되므로 N:1)
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "PARENT_ID")
     private Category parent;
 
