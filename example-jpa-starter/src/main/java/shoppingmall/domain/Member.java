@@ -27,11 +27,8 @@ public class Member extends BaseTimeEntity {
     private Long id;
     private String name;
 
-    private String city;
-
-    private String street;
-
-    private String zipcode;
+    @Embedded
+    private Address address;
 
     @OneToMany(mappedBy = "member")                 // Many쪽이 주인이므로, mappedBy에 주인 객체에서 FK로 사용중인 필드명을 설정한다.
     /**

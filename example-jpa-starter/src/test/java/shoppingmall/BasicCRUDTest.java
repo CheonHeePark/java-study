@@ -51,7 +51,7 @@ public class BasicCRUDTest {
 
         List<Member> members = memberRepository.findByName(member.getName());
         Assert.assertNotNull(members);
-        Assert.assertEquals(members.get(0).getCity(), member.getCity());
+        Assert.assertEquals(members.get(0).getAddress().getCity(), member.getAddress().getCity());
         System.out.println("Finish, findMemberTest");
     }
 
@@ -96,10 +96,18 @@ public class BasicCRUDTest {
     private Member createMember(String name, String city, String street, String zipcode) {
         Member m = new Member();
         m.setName(name);
+        /* Address Entity 추가로 인해 테스트 방식 변경
         m.setCity(city);
         m.setStreet(street);
         m.setZipcode(zipcode);
+        */
+        Address address = new Address();
+        address.setCity(city);
+        address.setStreet(street);
+        address.setZipcode(zipcode);
+        m.setAddress(address);
         return m;
+
     }
 
     private Item createItem(String name, int price, int quantity) {
@@ -113,8 +121,7 @@ public class BasicCRUDTest {
     }
 
     private Order createOrder(Member member) {
-        Order order = new Order(member);
-        return order;
+        return new Order(member);
     }
 
     private OrderItem createOrderItem(Order order, Item item) {

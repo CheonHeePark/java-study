@@ -6,6 +6,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
+import shoppingmall.domain.Address;
 import shoppingmall.domain.Member;
 import shoppingmall.domain.MemberRepository;
 import shoppingmall.domain.item.Book;
@@ -31,11 +32,11 @@ public class ExtendsClassTest {
 
     @Test
     public void bookItemTest() {
-        Item book = new Book();
+        Book book = new Book();
         book.setName("Java_Programming");
         book.setPrice(10000);
-        ((Book) book).setAuthor("Chpark");
-        ((Book) book).setIsbn("IS19129293");
+        book.setAuthor("Chpark");
+        book.setIsbn("IS19129293");
 
         itemRepository.save(book);
 
@@ -60,7 +61,7 @@ public class ExtendsClassTest {
         Assert.assertNotNull(createdTime);
         Assert.assertNotNull(modifiedTime);
 
-        Assert.assertTrue(member == findMember);
+        Assert.assertSame(member, findMember);
 
         System.out.println("이름 : " + findMember.getName());
         System.out.println("생성일: " + createdTime);
@@ -70,9 +71,16 @@ public class ExtendsClassTest {
     private Member createMember(String name, String city, String street, String zipcode) {
         Member m = new Member();
         m.setName(name);
+        /* Address Entity추가로 인해 테스트 방식 변경
         m.setCity(city);
         m.setStreet(street);
         m.setZipcode(zipcode);
+        */
+        Address address = new Address();
+        address.setCity(city);
+        address.setStreet(street);
+        address.setZipcode(zipcode);
+        m.setAddress(address);
         return m;
     }
 }
