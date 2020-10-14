@@ -38,4 +38,23 @@ public abstract class Item {
 
     @ManyToMany(mappedBy = "items")
     private List<Category> categorys = new ArrayList<>();
+
+    /**
+     * 재고 추가
+     * @param quantity 추가할 재고량
+     */
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
+    }
+
+    /**
+     * 재고 감소
+     * @param quantity 제거할 재고량
+     */
+    public void removeStock(int quantity) {
+        if (this.stockQuantity < quantity) {
+            throw new RuntimeException("need more stock.");
+        }
+        this.stockQuantity -= quantity;
+    }
 }

@@ -46,9 +46,51 @@ public class Order extends BaseTimeEntity {
         setOrderer(orderer);
     }
 
-    // 주문목록 추가
+    /**
+     * 상품 주문
+     * @param member    주문요청한 회원
+     * @param delivery  주문요청한 회원의 배송지
+     * @param orderItems 주문요청된 상품 목록
+     * @return 생성된 주문
+     */
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
+        Order order = new Order();
+        order.setOrderer(member);
+        order.changeDeliveryInfo(delivery);
+        for (OrderItem orderItem: orderItems) {
+           order.addOrderItem(orderItem);
+        }
+        order.changeStatus(OrderStatus.ORDER);
+        return order;
+    }
+
+    /** 주문 취소
+     */
+    public void cancelOrder() {
+        validDeliveryStatus();
+        for (OrderItem orderItem: this.orderItems) {
+            orderItem.cancel();
+        }
+        this.changeStatus(OrderStatus.CANCEL);
+    }
+
+    /**
+     * 전체 주문가격 조회
+     * @return
+     */
+    public int totalPrice() {
+        int total = 0;
+        for (OrderItem orderItem : this.orderItems) {
+            total += orderItem.getTotalPrice();
+        }
+        return total;
+    }
+
+    /** 주문목록 추가
+     * @param orderItem
+     */
     public void addOrderItem(OrderItem orderItem) {
-       orderItems.add(orderItem);
+       this.orderItems.add(orderItem);
        orderItem.setOrder(this);
     }
 
@@ -64,5 +106,15 @@ public class Order extends BaseTimeEntity {
        }
        this.member = member;
        this.member.getOrders().add(this);
+    }
+
+    private void changeStatus(OrderStatus status) {
+        this.status = status;
+    }
+
+    private void validDeliveryStatus() {
+        if (this.delivery.getStatus().equals(DeliveryStatus.COMPLETED)) {
+            throw new RuntimeException("This order is completed(Delivery OK). so cannot order-cancel.");
+        }
     }
 }
