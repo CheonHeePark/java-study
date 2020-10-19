@@ -1,3 +1,6 @@
 # Created by .ignore support plugin (hsz.mobi)
 .gradle
 .idea
+
+# 일시적으로 관리중지
+algorithm
