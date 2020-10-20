@@ -8,6 +8,7 @@ import shoppingmall.domain.item.Item;
 import shoppingmall.domain.item.ItemRepository;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Choen-hee Park
@@ -45,8 +46,7 @@ public class OrderService {
     // 주문 취소
     @Transactional
     public void cancel(Long orderId) {
-       Order order = orderRepository.findById(orderId)
-               .orElseThrow(() -> new IllegalArgumentException("Wrong orderId: <" + orderId + ">"));
+       Order order = findById(orderId);
        order.cancelOrder();
     }
 
@@ -55,5 +55,12 @@ public class OrderService {
     public Order findById(Long orderId) {
         return orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Wrong orderId: <" + orderId + ">"));
+    }
+
+    // 주문 검색
+    @Transactional
+    public List<Order> search(OrderSearch orderSearch) {
+        //return orderRepository.findByMemberNameLike(orderSearch.getMemberName());
+        return orderRepository.findByMemberNameLikeAndStatus(orderSearch.getMemberName(), orderSearch.getOrderStatus());
     }
 }
