@@ -98,6 +98,7 @@ public class Order extends BaseTimeEntity {
     public void changeDeliveryInfo(Delivery delivery) {
         this.delivery = delivery;
         delivery.setOrder(this);
+        delivery.setStatus(DeliveryStatus.READY);
     }
 
     private void setOrderer(Member member) {

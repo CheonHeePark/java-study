@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shoppingmall.domain.Category;
+import shoppingmall.exception.NotEnoughStockException;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public abstract class Item {
      */
     public void removeStock(int quantity) {
         if (this.stockQuantity < quantity) {
-            throw new RuntimeException("need more stock.");
+            throw new NotEnoughStockException("need more stock.");
         }
         this.stockQuantity -= quantity;
     }
