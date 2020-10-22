@@ -9,6 +9,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 import shoppingmall.domain.Member;
 
+import java.util.List;
+
 /**
  * Created by Choen-hee Park
  * User : chpark
@@ -66,5 +68,26 @@ public class MemberServiceTest {
         memberService.join(member3);
 
         Assert.assertEquals(3, memberService.findMembers().size());
+    }
+
+    @Test
+    public void 회원_이름_Like검색_테스트() {
+        createMember("chpark");
+        createMember("jimin");
+        createMember("seongeun");
+        List<Member> allMembers = memberService.findMembers();
+        Assert.assertEquals(3, allMembers.size() );
+        List<Member> members = memberService.findByNameLike("park");
+        Assert.assertEquals(1, members.size() );
+        members = memberService.findByNameLike("imi");
+        Assert.assertEquals(1, members.size() );
+        members = memberService.findByNameLike("se");
+        Assert.assertEquals(1, members.size());
+    }
+
+    private Long createMember(String name) {
+        Member member = new Member();
+        member.setName(name);
+        return memberService.join(member);
     }
 }

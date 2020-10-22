@@ -51,6 +51,11 @@ public class MemberService {
                 () -> new IllegalArgumentException("Wrong memberId: <" + memberId + ">"));
     }
 
+    @Transactional
+    public List<Member> findByNameLike(String memberName) {
+       return memberRepository.findByNameContaining(memberName);
+    }
+
     /* 회원 중복가입 체크
      */
     private void validateDuplicateMember(Member member) {
