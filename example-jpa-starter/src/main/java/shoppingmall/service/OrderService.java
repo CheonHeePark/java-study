@@ -60,7 +60,8 @@ public class OrderService {
     // 주문 검색
     @Transactional
     public List<Order> search(OrderSearch orderSearch) {
-        //return orderRepository.findByMemberNameLike(orderSearch.getMemberName());
-        return orderRepository.findByMemberNameLikeAndStatus(orderSearch.getMemberName(), orderSearch.getOrderStatus());
+        //return orderRepository.findByMemberNameLikeAndStatus(orderSearch.getMemberName(), orderSearch.getOrderStatus());
+        // Spec을 사용한 검색
+        return orderRepository.findAll(orderSearch.toSpecification());
     }
 }

@@ -1,5 +1,7 @@
 package shoppingmall.domain;
 
+import org.aspectj.weaver.ast.Or;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -12,10 +14,10 @@ import java.util.List;
  * Time : 11:56 PM
  */
 public interface OrderRepository extends JpaRepository<Order, Long> {
-    @Query("SELECT o, m FROM Order o INNER JOIN o.member m WHERE m.name like %:memberName% ")
-    List<Order> findByMemberNameLike(String memberName);
-
-    // TODO JPQL을 주석처리하면 검색결과 아무것도 조회되지않음. JPQL 조건 관련 확인해야함
+    // Containing을 사용하면 JPQL없이 JPA가 자동으로 Like검색 쿼리를 만들어준다.
     @Query("SELECT o, m FROM Order o INNER JOIN o.member m WHERE m.name like %:memberName% and o.status = :status")
     List<Order> findByMemberNameLikeAndStatus(String memberName, OrderStatus status);
+
+    // Spec 사용
+    List<Order> findAll(Specification<Order> orderSpecification);
 }
