@@ -3,11 +3,11 @@ package shoppingmall.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import shoppingmall.CustomOrderRepository;
 import shoppingmall.domain.*;
 import shoppingmall.domain.item.Item;
 import shoppingmall.domain.item.ItemRepository;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,6 +21,7 @@ import java.util.List;
 @Service
 public class OrderService {
     private final OrderRepository orderRepository;
+    private final CustomOrderRepository customOrderRepository;
     private final MemberRepository memberRepository;
     private final ItemRepository itemRepository;
 
@@ -60,8 +61,13 @@ public class OrderService {
     // 주문 검색
     @Transactional
     public List<Order> search(OrderSearch orderSearch) {
+        // JPQL을 사용한 검색
         //return orderRepository.findByMemberNameLikeAndStatus(orderSearch.getMemberName(), orderSearch.getOrderStatus());
+
         // Spec을 사용한 검색
         return orderRepository.findAll(orderSearch.toSpecification());
+
+        // QueryDSL 사용한 검색
+        //return customOrderRepository.search(orderSearch);
     }
 }
