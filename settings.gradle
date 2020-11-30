@@ -4,4 +4,6 @@ findProject(':modern-java')?.name = 'study'
 include 'algorithm'
 include 'example-jpa-starter'
 include 'jpa-testing'
+include 'openapi'
+include 'study-data-structure'
 
