@@ -16,8 +16,8 @@ public class ListExample {
         List<String> arrayList  = new ArrayList<>();
         List<String> linkedList = new LinkedList<>();
         System.out.println("Add. Size:500000, StartIndex:0");
-        add(arrayList, 100000 * 5);
-        add(linkedList, 100000 * 5);
+        add(arrayList, 100000 * 100);
+        add(linkedList, 100000 * 100);
 
         System.out.println("Add. Size:100000, StartIndex:100");
         add(arrayList, 100000, 100);
@@ -35,7 +35,7 @@ public class ListExample {
         add(arrayList, 100000, 100000);
         add(linkedList, 100000, 100000);
 
-        System.out.println("Get. Size:1000, StartIndex:0");
+        System.out.println("Get. Size:10000, StartIndex:0");
         get(arrayList, 10000, 0);
         get(linkedList, 10000, 0);
 
